@@ -1,0 +1,16 @@
+package com.example.student.entities;
+
+
+public class Student {
+	
+	private Integer sId;
+	
+	private String sName;
+	
+	private String sPhone;
+	
+	private String sEmail;
+	
+	private String sAddress;
+
+}

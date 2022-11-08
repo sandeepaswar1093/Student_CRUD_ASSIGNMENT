@@ -1,0 +1,68 @@
+package com.example.student.controllers;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.student.entities.Student;
+import com.example.student.payloads.ApiResponse;
+import com.example.student.services.StudentServiceI;
+
+@RestController
+@RequestMapping("api/student/")
+public class StudentController {
+
+	@Autowired
+	private StudentServiceI studentServiceI;
+
+	// create student record
+
+	@PostMapping("/create")
+	public ResponseEntity<Student> createStudent(@RequestBody Student student) {
+		Student createdStudent = studentServiceI.createStudent(student);
+		return new ResponseEntity<Student>(createdStudent, HttpStatus.CREATED);
+	}
+
+	// update the Student Record
+
+	@PutMapping("/update/{sid}")
+	public ResponseEntity<Student> updateStudent(@RequestBody Student student, @PathVariable Integer sid) {
+		Student updatedStudent = studentServiceI.updateStudent(student, sid);
+		return new ResponseEntity<Student>(updatedStudent, HttpStatus.OK);
+
+	}
+
+	// delete Student Record
+
+	@DeleteMapping("/delete/{sid}")
+	public ResponseEntity<ApiResponse> deleteStudent(@PathVariable Integer sid) {
+		studentServiceI.deleteStudent(sid);
+
+		return new ResponseEntity<ApiResponse>(new ApiResponse("Data Deleted Successfully !!", true), HttpStatus.OK);
+	}
+	
+	// find all student records
+	@GetMapping("/getAll")
+	public ResponseEntity<List<Student>> getAllStudents()
+	{
+		List<Student> allStudent = studentServiceI.getAllStudent();
+		return new ResponseEntity<List<Student>>(allStudent, HttpStatus.OK);
+		
+	}
+	
+	
+	
+	
+	
+	
+}

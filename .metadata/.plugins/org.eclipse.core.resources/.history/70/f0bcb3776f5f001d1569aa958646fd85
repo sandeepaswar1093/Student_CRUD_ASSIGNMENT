@@ -1,0 +1,20 @@
+package com.example.student.entities;
+
+import lombok.Data;
+
+
+
+@Entity
+public class Student {
+	
+	private Integer sId;
+	
+	private String sName;
+	
+	private String sPhone;
+	
+	private String sEmail;
+	
+	private String sAddress;
+
+}
